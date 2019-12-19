@@ -35,7 +35,7 @@ Example JSON:
 ]
 ```
 
-The example code populates an Array of Animal():
+The example code populates an Array of ```Animal```:
 
 class Animal
    property string name;
