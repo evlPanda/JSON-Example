@@ -11,7 +11,7 @@ private
 end-class;
 
 method test_Animals
-   %Super = create JSON_EXAMPLE:test_Base("UQ_FX_PAYMENTS:FXFileCreator");
+   %Super = create JSON_EXAMPLE:test_Base("JSON_EXAMPLE:Animals;");
 end-method;
 
 method setup
