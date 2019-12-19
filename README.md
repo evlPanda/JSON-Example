@@ -3,6 +3,7 @@ Example of populating complex data type from JSON in PeopleCode
 
 Example JSON:
 
+```
 [
   {
     "name": "Meowsy",
@@ -32,6 +33,7 @@ Example JSON:
     }
   }
 ]
+```
 
 The example code populates an Array of Animal():
 
