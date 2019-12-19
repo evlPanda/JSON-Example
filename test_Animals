@@ -11,7 +11,7 @@ private
 end-class;
 
 method test_Animals
-   %Super = create JSON_EXAMPLE:test_Base("JSON_EXAMPLE:Animals;");
+   %Super = create JSON_EXAMPLE:test_Base("JSON_EXAMPLE:Animals");
 end-method;
 
 method setup
