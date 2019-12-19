@@ -1,6 +1,8 @@
 # JSON-Example
 Example of populating complex data type from JSON in PeopleCode
 
+Credit to https://www.cedarhillsgroup.com/knowledge-base/kbarticles/JSON-parsing-using-peopleTools/ for the example.
+
 Example JSON:
 
 ```
