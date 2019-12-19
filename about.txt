@@ -1,0 +1,37 @@
+/* 
+
+Packages to demostrate how to read JSON files.
+
+Example JSON:
+
+[
+  {
+    "name": "Meowsy",
+    "species" : "cat",
+    "canBark": false,
+    "foods": {
+      "likes": ["tuna", "catnip"],
+      "dislikes": ["ham", "zucchini"]
+    }
+  },
+  {
+    "name": "Barky",
+    "species" : "dog",
+    "canBark": true,
+    "foods": {
+      "likes": ["bones", "carrots"],
+      "dislikes": ["tuna"]
+    }
+  },
+  {
+    "name": "Purrpaws",
+    "species" : "cat",
+    "canBark": false,
+    "foods": {
+      "likes": ["mice"],
+      "dislikes": ["cookies"]
+    }
+  }
+]
+
+*/
