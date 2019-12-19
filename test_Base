@@ -1,0 +1,84 @@
+import TTS_UNITTEST:TestBase;
+
+class test_Base extends TTS_UNITTEST:TestBase
+   property string className;
+   property string name;
+   property any expectedResult;
+   property any actualResult;
+   property string pass get;
+   method test_Base(&className_ As string);
+   method setup();
+   method teardown();
+   method test();
+   method doTest();
+   method getFailMessage() Returns string;
+   method passTest();
+   method passClass();
+   method tableRow(&1 As string, &2 As any, &3 As any, &4 As string);
+end-class;
+
+get pass
+   /+ Returns String +/
+   Return " <span style = ""color: green; font-weight: bold;"">PASS</span>";
+end-get;
+
+method test_Base
+   /+ &className_ as String +/
+   %Super = create TTS_UNITTEST:TestBase(&className_);
+   %This.className = &className_;
+end-method;
+
+method setup
+   /+ Extends/implements TTS_UNITTEST:TestBase.Setup +/
+   %This.HTMLMsg("<table>");
+   %This.HTMLMsg("<tr><td colspan=4 align=left><h3>" | %This.className | "</h3></td></tr>");
+   %This.HTMLMsg("<tr><td><b>Name</b></td><td><b>Expected Result</b></td><td><b>Actual Result</b></td><td><b>Pass</b></td></tr>");
+end-method;
+
+method test
+   %This.doTest();
+   %This.passTest();
+end-method;
+
+method doTest
+   Evaluate True
+   When %This.expectedResult /* boolean */
+   When ( Not %This.expectedResult)
+      %This.Assert((%This.expectedResult = %This.actualResult), %This.getFailMessage());
+      Return;
+   When IsNumber(%This.expectedResult)
+      %This.AssertNumbersEqual(%This.expectedResult, %This.actualResult, %This.getFailMessage());
+      Return;
+   When IsAlphaNumeric(%This.expectedResult)
+   When IsAlpha(%This.expectedResult)
+   When IsDigits(%This.expectedResult)
+      %This.AssertStringsEqual(%This.expectedResult, %This.actualResult, %This.getFailMessage());
+      Return;
+   End-Evaluate;
+end-method;
+
+method getFailMessage
+   /+ Returns String +/
+   Return "Expected: '" | %This.expectedResult | "', Actual: '" | %This.actualResult | "'";
+end-method;
+
+method passTest
+   %This.tableRow(%This.name, %This.expectedResult, %This.actualResult, %This.pass);
+end-method;
+
+method passClass
+   %This.HTMLMsg("<tr><td colspan=3 align=left><b>" | %This.className | "</b></td><td><b>" | %This.pass | "<b></td></tr>");
+end-method;
+
+method tableRow
+   /+ &1 as String, +/
+   /+ &2 as Any, +/
+   /+ &3 as Any, +/
+   /+ &4 as String +/
+   %This.HTMLMsg("<tr><td>" | &1 | "</td><td>" | &2 | "</td><td>" | &3 | "</td><td>" | &4 | "</td></tr>");
+end-method;
+
+method teardown
+   /+ Extends/implements TTS_UNITTEST:TestBase.Teardown +/
+   %This.HTMLMsg("</table>");
+end-method;
