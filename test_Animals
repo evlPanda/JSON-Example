@@ -1,0 +1,67 @@
+import JSON_EXAMPLE:test_Base;
+import JSON_EXAMPLE:Animals;
+
+class test_Animals extends JSON_EXAMPLE:test_Base
+   method test_Animals();
+   method setup();
+   method run();
+   method teardown();
+private
+   instance JSON_EXAMPLE:Animals &_Animals;
+end-class;
+
+method test_Animals
+   %Super = create JSON_EXAMPLE:test_Base("UQ_FX_PAYMENTS:FXFileCreator");
+end-method;
+
+method setup
+   /+ Extends/implements JSON_EXAMPLE:test_Base.setup +/
+   %Super.setup();
+   Local string &exampleJSON;
+   &exampleJSON = GetHTMLText(HTML.UQ_EXAMPLE_JSON);
+   &_Animals = create JSON_EXAMPLE:Animals(&exampleJSON);
+end-method;
+
+method run
+   /+ Extends/implements TTS_UNITTEST:TestBase.Run +/
+   
+   %This.name = "Number of Animals";
+   %This.expectedResult = 3;
+   %This.actualResult = &_Animals.Len;
+   %This.test();
+   
+   Local any &Animal = &_Animals.getByName("Barky");
+   
+   %This.name = "Animal.name";
+   %This.expectedResult = "Barky";
+   %This.actualResult = &Animal.name;
+   %This.test();
+   
+   %This.name = "Animal.species";
+   %This.expectedResult = "dog";
+   %This.actualResult = &Animal.species;
+   %This.test();
+   
+   %This.name = "Animal.canBark";
+   %This.expectedResult = True;
+   %This.actualResult = &Animal.canbark;
+   %This.test();
+   
+   %This.name = "Animal.likesFoods";
+   %This.expectedResult = "bones, carrots";
+   %This.actualResult = &Animal.likesFoods;
+   %This.test();
+   
+   %This.name = "Animal.dislikesFoods";
+   %This.expectedResult = "tuna";
+   %This.actualResult = &Animal.dislikesFoods;
+   %This.test();
+   
+   %This.passClass();
+   
+end-method;
+
+method teardown
+   /+ Extends/implements JSON_EXAMPLE:test_Base.teardown +/
+   %Super.teardown();
+end-method;
