@@ -1,0 +1,79 @@
+import JSON_EXAMPLE:Animal;
+
+class Animals extends Array
+   method Animals(&jsonString_ As string);
+   method getByName(&name_ As string) Returns JSON_EXAMPLE:Animal;
+private
+   instance JsonArray &_JsonAnimals;
+   method init(&jsonString As string);
+   method populate();
+   method getAnimal(&JsonAnimal As JsonObject) Returns JSON_EXAMPLE:Animal;
+   method getFoods(&jsonFoods As JsonArray) Returns string;
+end-class;
+
+method getByName
+   /+ &name_ as String +/
+   /+ Returns JSON_EXAMPLE:Animal +/
+   Local integer &i;
+   For &i = 1 To %This.Len
+      Local any &Animal = %This.Get(&i);
+      If &Animal.name = &name_ Then
+         Return &Animal;
+      End-If;
+   End-For;
+   Return Null;
+end-method;
+
+method Animals
+   /+ &jsonString_ as String +/
+   %Super = CreateArray();
+   %This.init(&jsonString_);
+   %This.populate();
+end-method;
+
+
+/* private */
+
+method init
+   /+ &jsonString as String +/
+   Local JsonParser &Parser = CreateJsonParser();
+   If Not &Parser.Parse(&jsonString) Then
+      Error %This | ".getRootObject() Failed. Could not parse &jsonString.";
+   End-If;
+   &_JsonAnimals = &Parser.GetRootObject().GetJsonArray("");
+end-method;
+
+method populate
+   Local JsonObject &JsonAnimal;
+   Local JSON_EXAMPLE:Animal &Animal;
+   Local integer &i;
+   For &i = 1 To &_JsonAnimals.Length();
+      &JsonAnimal = &_JsonAnimals.GetJsonObject(&i);
+      &Animal = %This.getAnimal(&JsonAnimal);
+      %This.Push(&Animal);
+   End-For;
+end-method;
+
+method getAnimal
+   /+ &JsonAnimal as JsonObject +/
+   /+ Returns JSON_EXAMPLE:Animal +/
+   Local JSON_EXAMPLE:Animal &Animal;
+   &Animal = create JSON_EXAMPLE:Animal();
+   &Animal.name = &JsonAnimal.GetAsString("name");
+   &Animal.species = &JsonAnimal.GetAsString("species");
+   &Animal.canBark = &JsonAnimal.GetBooleanProperty("canBark");
+   &Animal.likesFoods = %This.getFoods(&JsonAnimal.GetJsonObject("foods").GetJsonArray("likes"));
+   &Animal.dislikesFoods = %This.getFoods(&JsonAnimal.GetJsonObject("foods").GetJsonArray("dislikes"));
+   Return &Animal;
+end-method;
+
+method getFoods
+   /+ &jsonFoods as JsonArray +/
+   /+ Returns String +/
+   Local integer &i;
+   Local array of string &Foods = CreateArrayRept("", 0);
+   For &i = 1 To &jsonFoods.Length()
+      &Foods.Push(&jsonFoods.GetAsString(&i));
+   End-For;
+   Return &Foods.Join(", ", "", "");
+end-method;
