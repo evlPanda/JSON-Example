@@ -55,4 +55,4 @@ Local string &exampleJSON = GetHTMLText(HTML.EXAMPLE_JSON);
 &Animals = create JSON_EXAMPLE:Animals(&exampleJSON);
 ```
 
-See more example in unit test.
+See more examples in unit test.
