@@ -1,0 +1,7 @@
+class Animal
+   property string name;
+   property string species;
+   property boolean canBark;
+   property string likesFoods;
+   property string dislikesFoods;
+end-class;
