@@ -37,6 +37,7 @@ Example JSON:
 
 The example code populates an Array of ```Animal```:
 
+```
 class Animal
    property string name;
    property string species;
@@ -44,13 +45,14 @@ class Animal
    property string likesFoods;
    property string dislikesFoods;
 end-class;
+```
 
 example use:
 
 ```
-   Local JSON_EXAMPLE:Animals &Animals;
-   Local string &exampleJSON = GetHTMLText(HTML.EXAMPLE_JSON);
-   &Animals = create JSON_EXAMPLE:Animals(&exampleJSON);
+Local JSON_EXAMPLE:Animals &Animals;
+Local string &exampleJSON = GetHTMLText(HTML.EXAMPLE_JSON);
+&Animals = create JSON_EXAMPLE:Animals(&exampleJSON);
 ```
 
 See more example in unit test.
